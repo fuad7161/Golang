@@ -1,0 +1,42 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Build directories
+/build/
+bin/
+
+# Dependency directories (if using vendoring)
+vendor/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Test result files
+*.test
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*.DS_Store
+.vscode/
+*.code-workspace
+
+# Go workspace file
+go.work
+
+# Generated code
+gen/
+
+# Config files with sensitive data (e.g., API keys, secrets)
+.env
+config.yaml
+config.json
+
+# Module cache
+go.sum
