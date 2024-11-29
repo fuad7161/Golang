@@ -1,23 +1,22 @@
 package main
 
 import (
-	helper "awesomeProject/handlers"
+	"awesomeProject/handlers"
 	"fmt"
 )
 
-type myObj struct {
-	name string
-	age  int
+const numPool = 1000
+
+func CalculateValue(intChan chan int) {
+	randomeNumber := handlers.RandomNumber(numPool)
+	intChan <- randomeNumber
 }
 
 func main() {
-	var myvar helper.SomeName
-	myvar.TypeName = "fuad"
-	myvar.TypeNumber = 12
-	fmt.Println(myvar)
+	intChan := make(chan int)
+	defer close(intChan)
+	go CalculateValue(intChan)
 
-	var myobj myObj
-	myobj.name = "jack"
-	myobj.age = 25
-	fmt.Println(myobj)
+	num := <-intChan
+	fmt.Print(num)
 }
