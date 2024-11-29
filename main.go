@@ -1,11 +1,21 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+// obj store in a map
+
+type User struct {
+	Name string
+	Age  int
+}
 
 func main() {
-	vis := make(map[string]string)
-	vis["fuad"] = "good boy"
-	fmt.Println(vis["fuad"])
+	vis := map[string]User{}
+
+	vis["person1"] = User{
+		Name: "Fuadul Hasan",
+		Age:  23,
+	}
+
+	fmt.Println(vis["person1"].Name)
 }
