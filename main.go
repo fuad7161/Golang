@@ -1,21 +1,28 @@
 package main
 
-import "fmt"
-
-// obj store in a map
-
-type User struct {
-	Name string
-	Age  int
-}
+import (
+	"fmt"
+	"sort"
+)
 
 func main() {
-	vis := map[string]User{}
 
-	vis["person1"] = User{
-		Name: "Fuadul Hasan",
-		Age:  23,
-	}
+	var mySlice []string
+	mySlice = append(mySlice, "fuadul")
+	mySlice = append(mySlice, "Hasan")
+	fmt.Println(mySlice)
+	sort.Strings(mySlice)
+	fmt.Println(mySlice)
 
-	fmt.Println(vis["person1"].Name)
+	var a []int
+	a = append(a, 2)
+	a = append(a, 1)
+	a = append(a, 3)
+	fmt.Println(a)
+	sort.Ints(a)
+	fmt.Println(a)
+
+	b := []int{1, 2, 3, 5, 6, 7, 8, 9}
+	fmt.Println(b)
+	fmt.Println(b[2:6])
 }
