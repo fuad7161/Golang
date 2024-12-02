@@ -2,6 +2,7 @@ package render
 
 import (
 	"awesomeProject/pkg/config"
+	"awesomeProject/pkg/models"
 	"bytes"
 	"fmt"
 	"html/template"
@@ -19,7 +20,10 @@ func NewTemplate(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
 		tc = app.TemplateCache
@@ -33,7 +37,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	}
 
 	buf := new(bytes.Buffer)
-	_ = t.Execute(buf, nil)
+
+	td = AddDefaultData(td)
+	_ = t.Execute(buf, td)
 	_, err := buf.WriteTo(w)
 	if err != nil {
 		fmt.Println("Error writing template:", err)
