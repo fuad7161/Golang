@@ -20,8 +20,13 @@ func NewTemplate(a *config.AppConfig) {
 }
 
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
+	var tc map[string]*template.Template
+	if app.UseCache {
+		tc = app.TemplateCache
+	} else {
+		tc, _ = CreateTemplateCache()
+	}
 
-	tc := app.TemplateCache
 	t, ok := tc[tmpl]
 	if !ok {
 		log.Fatal("Error loading template:", tmpl)
