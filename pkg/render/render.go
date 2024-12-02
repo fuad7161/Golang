@@ -1,6 +1,7 @@
 package render
 
 import (
+	"awesomeProject/pkg/config"
 	"bytes"
 	"fmt"
 	"html/template"
@@ -11,11 +12,16 @@ import (
 
 var functions = template.FuncMap{}
 
+var app *config.AppConfig
+
+// NewTemplates sets the config for the template package
+func NewTemplate(a *config.AppConfig) {
+	app = a
+}
+
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal("Error creating template cache:", err)
-	}
+
+	tc := app.TemplateCache
 	t, ok := tc[tmpl]
 	if !ok {
 		log.Fatal("Error loading template:", tmpl)
@@ -23,7 +29,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 	_ = t.Execute(buf, nil)
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 	if err != nil {
 		fmt.Println("Error writing template:", err)
 	}
