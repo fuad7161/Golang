@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"awesomeProject/pkg/config"
-	"awesomeProject/pkg/models"
-	"awesomeProject/pkg/render"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/models"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/render"
 	"net/http"
 )
 

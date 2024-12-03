@@ -1,11 +1,11 @@
 package main
 
 import (
-	"awesomeProject/pkg/config"
-	"awesomeProject/pkg/handlers"
-	"awesomeProject/pkg/render"
 	"fmt"
 	"github.com/alexedwards/scs/v2"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/handlers"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/render"
 	"log"
 	"net/http"
 	"time"

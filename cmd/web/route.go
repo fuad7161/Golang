@@ -1,8 +1,8 @@
 package main
 
 import (
-	"awesomeProject/pkg/config"
-	"awesomeProject/pkg/handlers"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"net/http"

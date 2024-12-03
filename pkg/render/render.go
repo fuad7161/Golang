@@ -1,10 +1,10 @@
 package render
 
 import (
-	"awesomeProject/pkg/config"
-	"awesomeProject/pkg/models"
 	"bytes"
 	"fmt"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/models"
 	"html/template"
 	"log"
 	"net/http"
