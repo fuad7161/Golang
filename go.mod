@@ -1,6 +1,6 @@
-module awesomeProject
+module github.com/fuad7161/Golang/tree/Project/Bookings
 
-go 1.23
+go 1.23.3
 
 require github.com/go-chi/chi/v5 v5.1.0
 
