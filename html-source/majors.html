@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>My nice page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .my-footer {
+            background-color: #2c3e50; /* Dark grayish-blue background */
+            color: #ffffff;           /* White text color */
+            padding: 20px 0;          /* Vertical padding */
+            text-align: center;       /* Center text alignment for smaller screens */
+            font-size: 16px;          /* Base font size */
+        }
+
+        .my-footer .col {
+            display: flex;
+            justify-content: center;  /* Center content horizontally */
+            align-items: center;      /* Center content vertically */
+            padding: 10px;            /* Add some spacing */
+        }
+
+        .my-footer .col:hover {
+            background-color: #34495e; /* Slightly lighter background on hover */
+            transition: background-color 0.3s ease; /* Smooth hover effect */
+        }
+
+        @media (min-width: 768px) {
+            .my-footer {
+                text-align: left; /* Align left on larger screens */
+            }
+
+            .my-footer .col {
+                justify-content: flex-start; /* Align content to the start */
+            }
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Rooms
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="generals.html">General's Quarters</a></li>
+                  <li><a class="dropdown-item" href="majors.html">Major's Suite</a></li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="reservation.html" tabindex="-1" aria-disabled="true">Book Now</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html" tabindex="-1" aria-disabled="true">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="static/images/mejor.png" alt="general room image" class="img-fluid image-thumbnail mx-auto d-block">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mt-4">Mejor's Suite</h1>
+                <p class="text-center mt-4">
+                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <a href="/make-reservation-qa" class="btn btn-success">Check Availability</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-footer">
+        <div class="col">
+            Left
+        </div>
+        <div class="col">
+            Middle
+        </div>
+        <div class="col">
+            Right
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
