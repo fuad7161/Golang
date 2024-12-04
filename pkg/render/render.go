@@ -23,6 +23,7 @@ func NewTemplate(a *config.AppConfig) {
 func AddDefaultData(td *models.TemplateData) *models.TemplateData {
 	return td
 }
+
 func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	if app.UseCache {
@@ -54,7 +55,6 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	if err != nil {
 		return myCache, err
 	}
-
 	for _, page := range pages {
 		name := filepath.Base(page)
 		ts, err := template.New(name).Funcs(functions).ParseFiles(page)

@@ -1,0 +1,50 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+<div class="container mb-3">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <h1 class="mt-5">Search for Availability</h1>
+
+
+                <form  action="reservation.html" method="get" novalidate class="needs-validation">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group mb-3" id="reservation-dates">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="start" class="form-control" placeholder="Start date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="end" class="form-control" placeholder="End date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search Availability</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p id="myParagraph">This is some text</p>
+                <p>
+                    <button type="button" id="colorButton" class="btn btn-outline-secondary">Click me</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+{{end}}
+
+{{define "js"}}
+    <script>
+        const elem = document.getElementById('reservation-dates');
+            const rangepicker = new DateRangePicker(elem, {
+                format: "yyyy-mm-dd"
+            });
+    </script>
+{{end}}
