@@ -92,11 +92,6 @@
         })
     })()
 
-    const elem = document.getElementById('reservation-dates');
-    const rangepicker = new DateRangePicker(elem, {
-        format: "yyyy-mm-dd"
-    });
-
     function notify(msg , msgType){
         notie.alert({
             type: msgType,
@@ -104,37 +99,7 @@
         })
     }
 
-    document.getElementById("colorButton").addEventListener("click", function () {
-        // let myEl = document.getElementById("myParagraph")
-        // if(myEl.classList.contains("redText"))myEl.classList.remove("redText")
-        // else myEl.classList.add("redText")
-        // notify("this is my message" , "success")
-        // notifyModel("title" , "<em>Hello world</em>" , "success" , "Ok")
-        // attention.toast({msg:"Hello World" , icon: 'error'});
-        // attention.success({msg:"Hello World"});
-        // attention.error({msg:"Oooops..."})
 
-        let html = `
-                <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group mb-3" id="reservation-dates-modal">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input disabled type="text" name="start" id="start" class="form-control" placeholder="Start date">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input disabled type="text" name="end" id="end" class="form-control" placeholder="End date">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-            `;
-
-        attention.custom({msg: html , title:"Choose your dates"});
-    })
 
     function notifyModel(title, text, icon, confirmButtonText){
         Swal.fire({
@@ -200,18 +165,16 @@
                 msg = "",
                 title = "",
             } = c;
-            const { value: formValues } = await Swal.fire({
+            const { value: result } = await Swal.fire({
                 title:title,
                 html:msg,
                 backdrop: false,
                 focusConfirm: false,
                 showCancelButton: true,
                 willOpen:() =>{
-                    const elem = document.getElementById('reservation-dates-modal')
-                    const rp = new DateRangePicker(elem, {
-                        format: "yyyy-mm-dd",
-                        showOnFocus: true,
-                    })
+                    if(c.willOpen !== undefined){
+                        c.willOpen()
+                    }
                 },
                 preConfirm: () => {
                     return [
@@ -220,12 +183,23 @@
                     ];
                 },
                 didOpen: () => {
-                    document.getElementById("start").removeAttribute("disabled");
-                    document.getElementById("end").removeAttribute("disabled");
+                    if(c.didOpen !== undefined){
+                        c.didOpen()
+                    }
                 },
             });
-            if (formValues) {
-                Swal.fire(JSON.stringify(formValues));
+            if (result) {
+                if(result.dismiss !== Swal.DismissReason.cancel){
+                    if(result.value !== ""){
+                        if(c.callback !== undefined){
+                            c.callback(result);
+                        }
+                    }else{
+                        c.callback(false);
+                    }
+                }else{
+                    c.callback(false);
+                }
             }
         }
         return {
@@ -239,39 +213,3 @@
 </body>
 </html>
 {{end}}
-
-<!--
-
-document.getElementById("colorButton").addEventListener("click", function () {
-    // let myEl = document.getElementById("myParagraph")
-    // if(myEl.classList.contains("redText"))myEl.classList.remove("redText")
-    // else myEl.classList.add("redText")
-    // notify("this is my message" , "success")
-    // notifyModel("title" , "<em>Hello world</em>" , "success" , "Ok")
-    // attention.toast({msg:"Hello World" , icon: 'error'});
-    // attention.success({msg:"Hello World"});
-    // attention.error({msg:"Oooops..."})
-
-    let html = `
-        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group mb-3" id="reservation-dates-modal">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input disabled type="text" name="start" id="start" class="form-control" placeholder="Start date">
-                                </div>
-                                <div class="col-md-6">
-                                    <input disabled type="text" name="end" id="end" class="form-control" placeholder="End date">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-    `;
-
-    attention.custom({msg: html , title:"Choose your dates"});
-})
-
--->

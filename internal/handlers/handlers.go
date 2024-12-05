@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
-	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/models"
-	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/render"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/models"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/render"
+	"log"
 	"net/http"
 )
 
@@ -75,7 +77,26 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	start := r.FormValue("start")
 	end := r.FormValue("end")
 	w.Write([]byte(fmt.Sprintf("Posted to search availability start date: %s and end date is %s", start, end)))
+}
 
+type jsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+// AvailabilityJSON handle request for availability and send JSON response
+func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse{
+		OK:      true,
+		Message: "Availavle",
+	}
+	out, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		log.Println(err)
+	}
+	//fmt.Println(string(out))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }
 
 // Contact renders the availability of info

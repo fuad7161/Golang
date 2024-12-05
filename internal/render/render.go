@@ -3,8 +3,8 @@ package render
 import (
 	"bytes"
 	"fmt"
-	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/config"
-	"github.com/fuad7161/Golang/tree/Project/Bookings/pkg/models"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/models"
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"

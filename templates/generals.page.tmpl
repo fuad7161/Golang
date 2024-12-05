@@ -3,41 +3,41 @@
 {{define "content"}}
 
 <div class="container">
-        <div class="row">
-            <div class="col">
-                <img src="/static/images/general.png" alt="general room image" class="img-fluid image-thumbnail mx-auto d-block">
-            </div>
+    <div class="row">
+        <div class="col">
+            <img src="/static/images/general.png" alt="general room image" class="img-fluid image-thumbnail mx-auto d-block">
         </div>
     </div>
+</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center mt-4">General's Quarters</h1>
-                <p class="text-center mt-4">
-                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
-                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
-                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
-                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
-                    This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col text-center">
-                <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4">General's Quarters</h1>
+            <p class="text-center mt-4">
+                This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+                This is some text. This is some text. This is some text. This is some text. This is some text. This is some text.
+            </p>
         </div>
     </div>
+    <div class="row">
+        <div class="col text-center">
+            <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
+        </div>
+    </div>
+</div>
 
 {{end}}
 
 
 {{define "js"}}
-    <script>
-        document.getElementById("check-availability-button").addEventListener("click", function () {
+<script>
+    document.getElementById("check-availability-button").addEventListener("click", function () {
 
-            let html = `
+        let html = `
                 <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
                         <div class="row">
                             <div class="col">
@@ -56,7 +56,40 @@
                     </form>
             `;
 
-            attention.custom({msg: html , title:"Choose your dates"});
-        })
-    </script>
+        attention.custom({
+            msg: html ,
+            title:"Choose your dates",
+
+            willOpen:() =>{
+                const elem = document.getElementById('reservation-dates-modal')
+                const rp = new DateRangePicker(elem, {
+                    format: "yyyy-mm-dd",
+                    showOnFocus: true,
+                })
+            },
+
+            didOpen: () => {
+                document.getElementById("start").removeAttribute("disabled");
+                document.getElementById("end").removeAttribute("disabled");
+            },
+
+            callback: function () {
+                console.log("clicked");
+
+                let form = document.getElementById("check-availability-form");
+                let formData = new FormData(form);
+                formData.append("csrf_token" , "{{.CSRFToken}}")
+
+                fetch('search-availability-json' ,{
+                    method:'POST',
+                    body: formData,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                    })
+            }
+        });
+    })
+</script>
 {{end}}
