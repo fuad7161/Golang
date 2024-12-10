@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/alexedwards/scs/v2"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/config"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/driver"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/handlers"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/helpers"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/models"
@@ -23,10 +24,11 @@ var errorLog *log.Logger
 
 func main() {
 
-	err := run()
+	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
 	srv := &http.Server{
 		Addr:    portNumber,
@@ -36,9 +38,13 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 	// what am I going to put in the session
 	gob.Register(models.Reservation{})
+	gob.Register(models.User{})
+	gob.Register(models.Room{})
+	gob.Register(models.Restriction{})
+
 	// Change this to true when in production
 	app.InProduction = false
 
@@ -55,20 +61,28 @@ func run() error {
 	session.Cookie.Secure = app.InProduction
 	app.Session = session
 
+	// connect to database
+	log.Println("Connecting to database...")
+	db, err := driver.ConnectSQL("host=localhost user=postgres dbname=postgres user=postgres password=")
+	if err != nil {
+		log.Fatal(err)
+	}
+	//defer db.SQL.Close()
+
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("Cannot create template cache")
-		return err
+		return nil, err
 
 	}
 	app.TemplateCache = tc
 	app.UseCache = false
 
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
-	render.NewTemplate(&app)
+	render.NewRenderer(&app)
 	helpers.NewHelpers(&app)
 
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-	return nil
+	return db, nil
 }

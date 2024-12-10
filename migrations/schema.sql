@@ -108,7 +108,7 @@ CREATE TABLE public.room_restrictions (
     start_date date NOT NULL,
     end_date date NOT NULL,
     room_id integer NOT NULL,
-    reservation_id integer NOT NULL,
+    reservation_id integer,
     restriction_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -205,6 +205,41 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
+-- Name: users1; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users1 (
+    id integer NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL
+);
+
+
+ALTER TABLE public.users1 OWNER TO postgres;
+
+--
+-- Name: users1_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users1_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.users1_id_seq OWNER TO postgres;
+
+--
+-- Name: users1_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users1_id_seq OWNED BY public.users1.id;
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -262,6 +297,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Name: users1 id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users1 ALTER COLUMN id SET DEFAULT nextval('public.users1_id_seq'::regclass);
+
+
+--
 -- Name: reservations reservations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -299,6 +341,14 @@ ALTER TABLE ONLY public.rooms
 
 ALTER TABLE ONLY public.schema_migration
     ADD CONSTRAINT schema_migration_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: users1 users1_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users1
+    ADD CONSTRAINT users1_pk PRIMARY KEY (id);
 
 
 --
