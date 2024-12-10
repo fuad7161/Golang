@@ -45,5 +45,4 @@ go.sum
 node_modules
 package.json
 package-lock.json
-
 database.yml
