@@ -1,8 +1,8 @@
 development:
   dialect: postgres
-  database: myapp_development
+  database: postgres
   user: postgres
-  password: postgres
+  password:
   host: 127.0.0.1
   pool: 5
 
