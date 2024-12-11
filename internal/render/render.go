@@ -54,7 +54,7 @@ func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.Te
 
 }
 
-// Create a Template Cache as a map
+// CreateTemplateCache Create a Template Cache as a map
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 	pages, err := filepath.Glob("../../templates/*.page.tmpl")
