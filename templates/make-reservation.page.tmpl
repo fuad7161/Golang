@@ -10,7 +10,7 @@
            <p>End date: {{index .StringMap "end_date"}}</p><br>
            <p>Room Name: "{{$res.Room.RoomName}}"</p><br>
 
-            <form action="/reservation" method="post"  action="" class="" novalidate>
+            <form action="/reservation" method="post" class="" novalidate>
                 <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                 <input type="hidden" name="room_id" value="{{$res.RoomID}}">
                 <input type="hidden" name="start_date" value="{{index .StringMap "start_date"}}">

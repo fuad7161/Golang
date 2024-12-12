@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/alexedwards/scs/v2"
+	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/models"
 	"html/template"
 	"log"
 )
@@ -14,4 +15,5 @@ type AppConfig struct {
 	ErrorLog      *log.Logger
 	InProduction  bool
 	Session       *scs.SessionManager
+	MailChan      chan models.MailData
 }

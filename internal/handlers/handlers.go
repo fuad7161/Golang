@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/config"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/driver"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/forms"
@@ -12,6 +13,7 @@ import (
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/repository"
 	"github.com/fuad7161/Golang/tree/Project/Bookings/internal/repository/dbrepo"
 	"github.com/go-chi/chi/v5"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -145,6 +147,23 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		helpers.ServerError(w, err)
 		return
 	}
+
+	htmlMassage := fmt.Sprintf(`
+				<strong>Reservation Confirmation</strong><br>
+				Dear: %s %s<br>
+				this is confirm your resrevation from %s to %s<br>
+				`, reservation.FirstName, reservation.LastName, reservation.StartDate.Format("2006-01-02"), reservation.EndDate.Format("2006-01-02"))
+
+	// send notification
+	msg := models.MailData{
+		To:       reservation.Email,
+		From:     "me@here.com",
+		Subject:  "Reservation Confirmation",
+		Content:  htmlMassage,
+		Template: "basic.html",
+	}
+	m.App.MailChan <- msg
+
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 }
@@ -272,6 +291,51 @@ func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "contact.page.tmpl", &models.TemplateData{})
 }
 
+func (m *Repository) ShowLogin(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "login.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// Logout logs a user out
+func (m *Repository) Logout(w http.ResponseWriter, r *http.Request) {
+	_ = m.App.Session.Destroy(r.Context())
+	_ = m.App.Session.RenewToken(r.Context())
+	http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+}
+
+// PostShowLogin handles logging the user in
+func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
+	_ = m.App.Session.RenewToken(r.Context())
+
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+	form := forms.New(r.PostForm)
+	form.Required("email", "password")
+	form.IsEmail("email")
+	if !form.Valid() {
+		// TODO - take user back to page
+		render.Template(w, r, "login.page.tmpl", &models.TemplateData{
+			Form: form,
+		})
+	}
+
+	email := r.Form.Get("email")
+	password := r.Form.Get("password")
+	id, _, err := m.DB.Authenticate(email, password)
+	if err != nil {
+		log.Println(err)
+		m.App.Session.Put(r.Context(), "error", "Invalid login credentials")
+		http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+		return
+	}
+	m.App.Session.Put(r.Context(), "flash", "Logged in successfully")
+	m.App.Session.Put(r.Context(), "user_id", id)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
 func (m *Repository) ChooseRoom(w http.ResponseWriter, r *http.Request) {
 	roomId, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
@@ -310,4 +374,8 @@ func (m *Repository) BookRooK(w http.ResponseWriter, r *http.Request) {
 
 	m.App.Session.Put(r.Context(), "reservation", res)
 	http.Redirect(w, r, "/reservation", http.StatusSeeOther)
+}
+
+func (m *Repository) AdminDashboard(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "admin-dashboard.page.tmpl", &models.TemplateData{})
 }
