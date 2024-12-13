@@ -10,9 +10,12 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 )
 
-var functions = template.FuncMap{}
+var functions = template.FuncMap{
+	"humanDate": HumanDate,
+}
 
 var app *config.AppConfig
 
@@ -21,6 +24,12 @@ func NewRenderer(a *config.AppConfig) {
 	app = a
 }
 
+// HumanDate Returns time in YYYY-MM-DD
+func HumanDate(t time.Time) string {
+	return t.Format("2006-01-02")
+}
+
+// AddDefaultData adds data for all templates
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	td.Flash = app.Session.PopString(r.Context(), "flash")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
