@@ -1,0 +1,49 @@
+{{template "base" .}}
+
+{{define "content"}}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>This is an Add user page.</h1>
+                <form action="/addUser" method="post" class="" novalidate>
+                    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+
+                    <div class="form-group mt-5 mb-3">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" name="first_name" id="first_name"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+
+                    <div class="form-group mt-5 mb-3">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" name="last_name" id="last_name"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+
+                    <div class="form-group mt-5 mb-3">
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+
+                    <div class="form-group mt-5 mb-3">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+
+                    <div class="form-group mt-5 mb-3">
+                        <label for="access_level">Access Level:</label>
+                        <input type="text" name="access_level" id="access_level"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+
+                    <hr>
+
+                    <input type="submit" class="btn btn-primary" value="Add User">
+                </form>
+
+            </div>
+        </div>
+    </div>
+{{end}}

@@ -494,3 +494,32 @@ func (m *Repository) AdminPostShowReservation(w http.ResponseWriter, r *http.Req
 func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "admin-reservations-calender.page.tmpl", &models.TemplateData{})
 }
+
+// for adding information in DB
+
+// AddUser to get add user form
+func (m *Repository) AddUser(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "add-user.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// AddPostUser post to add a user
+func (m *Repository) AddPostUser(w http.ResponseWriter, r *http.Request) {
+	user := models.User{}
+	form := forms.New(r.PostForm)
+	user.FirstName = form.Get("first_name")
+	user.LastName = form.Get("last_name")
+	user.Email = form.Get("email")
+	accessLavel := form.Get("access_level")
+	user.AccessLevel, _ = strconv.Atoi(accessLavel)
+	user.Password = form.Get("password")
+	fmt.Println(user.FirstName)
+	err := m.DB.InsertUser(user)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+	m.App.Session.Put(r.Context(), "flash", "User added successfully")
+	http.Redirect(w, r, fmt.Sprintf("/addUser"), http.StatusSeeOther)
+}

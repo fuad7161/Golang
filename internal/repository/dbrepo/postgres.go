@@ -16,9 +16,7 @@ func (m *postgresDBRepo) AllUsers() bool {
 func (m *postgresDBRepo) InsertReservation(res models.Reservation) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-
 	var newID int
-
 	stmt := `insert into reservations (first_name, last_name, email, phone, start_date, end_date, room_id, created_at, updated_at) 
  		values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id`
 	err := m.DB.QueryRowContext(ctx, stmt,
@@ -331,6 +329,25 @@ func (m *postgresDBRepo) UpdateProcessedForReservation(id, processed int) error 
 
 	query := `update reservations set process = $1 where id = $2;`
 	_, err := m.DB.ExecContext(ctx, query, processed, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// InsertUser to insert a user
+func (m *postgresDBRepo) InsertUser(user models.User) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	query := `
+		INSERT INTO users (first_name, last_name, email, password, access_level,created_at, updated_at)
+VALUES ($1, $2, $3, $4, $5, $6, $7);
+`
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	_, err = m.DB.ExecContext(ctx, query, user.FirstName, user.LastName, user.Email, hashedPassword, user.AccessLevel, time.Now(), time.Now())
 	if err != nil {
 		return err
 	}
