@@ -7,29 +7,27 @@ type person struct {
 	age  int
 }
 
-func newPerson(name string, age int) *person {
-	//return &person{name, age}
-	p := person{name, age}
-	p.age = 43
-	return &p
+func (p *person) showDetails() {
+	fmt.Printf("%s is %d years old\n", p.name, p.age)
 }
 
+func (p *person) setName(name string) {
+	p.name = name
+}
+
+func (p *person) setAge(age int) {
+	p.age = age
+}
+
+func (p *person) getName() string {
+	return p.name
+}
+func (p *person) getAge() int {
+	return p.age
+}
 func main() {
-	fmt.Println(person{"fuad", 20})
-	fmt.Println(person{name: "fuad", age: 20})
-	fmt.Println(&person{name: "fuad", age: 20})
-
-	Me := struct {
-		name   string
-		isGood bool
-	}{
-		"fuadul",
-		true,
-	}
-
-	anotherme := Me
-	fmt.Println(Me)
-
-	anotherme.isGood = false
-	fmt.Println(anotherme)
+	var p person
+	p.setName("John")
+	p.setAge(18)
+	p.showDetails()
 }
