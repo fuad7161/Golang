@@ -1,22 +1,35 @@
 package main
 
-import (
-	"fmt"
-	"unicode/utf8"
-)
+import "fmt"
+
+type person struct {
+	name string
+	age  int
+}
+
+func newPerson(name string, age int) *person {
+	//return &person{name, age}
+	p := person{name, age}
+	p.age = 43
+	return &p
+}
 
 func main() {
-	const s = "สวัสดี"
+	fmt.Println(person{"fuad", 20})
+	fmt.Println(person{name: "fuad", age: 20})
+	fmt.Println(&person{name: "fuad", age: 20})
 
-	fmt.Println(len(s))
-	for i := 0; i < len(s); i++ {
-		fmt.Printf("%x ", s[i])
+	Me := struct {
+		name   string
+		isGood bool
+	}{
+		"fuadul",
+		true,
 	}
-	fmt.Println()
-	fmt.Println("Rune count:", utf8.RuneCountInString(s))
 
-	for idx, runeValue := range s {
-		fmt.Printf("%#U starts at %d\n", runeValue, idx)
-	}
+	anotherme := Me
+	fmt.Println(Me)
 
+	anotherme.isGood = false
+	fmt.Println(anotherme)
 }
