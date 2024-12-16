@@ -2,52 +2,43 @@ package main
 
 import "fmt"
 
-type Animal interface {
-	Says() string
-	NumberofLegs() int
+type ServerState int
+
+const (
+	StateIdle ServerState = iota
+	StateConnected
+	StateError
+	StateRetrying
+)
+
+var stateName = map[ServerState]string{
+	StateIdle:      "idle",
+	StateConnected: "connected",
+	StateError:     "error",
+	StateRetrying:  "retrying",
 }
 
-type Dog struct {
-	name  string
-	Breed string
-}
-
-type Gorilla struct {
-	name          string
-	Color         string
-	NumberOfTeeth int
+func (ss ServerState) String() string {
+	return stateName[ss]
 }
 
 func main() {
-	dog := Dog{
-		name:  "Puppy",
-		Breed: "Puppet",
+	ns := transition(StateIdle)
+	fmt.Println(ns)
+
+	ns2 := transition(ns)
+	fmt.Println(ns2)
+}
+
+func transition(s ServerState) ServerState {
+	switch s {
+	case StateIdle:
+		return StateConnected
+	case StateConnected, StateRetrying:
+		return StateIdle
+	case StateError:
+		return StateError
+	default:
+		panic(fmt.Errorf("unknown state: %s", s))
 	}
-	PringInfo(dog)
-
-	gorilla := Gorilla{
-		name:          "Gorilla",
-		Color:         "black",
-		NumberOfTeeth: 2,
-	}
-
-	PringInfo(gorilla)
-}
-
-func (g Gorilla) Says() string {
-	return "Groooooog"
-}
-func (g Gorilla) NumberofLegs() int {
-	return 2
-}
-func (d Dog) Says() string {
-	return "woof"
-}
-
-func (d Dog) NumberofLegs() int {
-	return 4
-}
-
-func PringInfo(a Animal) {
-	fmt.Println(a.Says(), a.NumberofLegs())
 }
