@@ -2,43 +2,58 @@ package main
 
 import "fmt"
 
-type ServerState int
-
-const (
-	StateIdle ServerState = iota
-	StateConnected
-	StateError
-	StateRetrying
-)
-
-var stateName = map[ServerState]string{
-	StateIdle:      "idle",
-	StateConnected: "connected",
-	StateError:     "error",
-	StateRetrying:  "retrying",
+type baseName struct {
+	name string
 }
 
-func (ss ServerState) String() string {
-	return stateName[ss]
+func (b *baseName) setName(name string) {
+	b.name = name
+}
+
+func (b *baseName) getName() string {
+	return b.name
+}
+
+type persone struct {
+	baseName
+	age int
+}
+
+func (p *persone) setAge(age int) {
+	p.age = age
+}
+func (p *persone) getAge() int {
+	return p.age
 }
 
 func main() {
-	ns := transition(StateIdle)
-	fmt.Println(ns)
+	Person := persone{
+		baseName: baseName{
+			name: "fuad",
+		},
+		age: 10,
+	}
+	Person.name = "fuadul"
+	Person.baseName.name = "Fuadul Hasan"
+	fmt.Println(Person)
+	var getset getterSetter
+	getset = getterSetter(&Person)
+	getset.setAge(12)
+	fmt.Println(getset.getName())
+	fmt.Println(getset.getAge())
 
-	ns2 := transition(ns)
-	fmt.Println(ns2)
+	Name := baseName{
+		name: "fuad al hasan",
+	}
+	fmt.Println(Name)
+	// its not possible
+	//getset = getterSetter(&Name)
+
 }
 
-func transition(s ServerState) ServerState {
-	switch s {
-	case StateIdle:
-		return StateConnected
-	case StateConnected, StateRetrying:
-		return StateIdle
-	case StateError:
-		return StateError
-	default:
-		panic(fmt.Errorf("unknown state: %s", s))
-	}
+type getterSetter interface {
+	getName() string
+	getAge() int
+	setAge(age int)
+	setName(name string)
 }
