@@ -353,3 +353,100 @@ VALUES ($1, $2, $3, $4, $5, $6, $7);
 	}
 	return nil
 }
+
+func (m *postgresDBRepo) ShowAllUser() ([]models.User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	query := `select u.id, u.first_name, u.last_name, u.email, u.password, u.access_level, u.created_at, u.updated_at from users u`
+	rows, err := m.DB.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var users []models.User
+	for rows.Next() {
+		var u models.User
+		err := rows.Scan(
+			&u.ID,
+			&u.FirstName,
+			&u.LastName,
+			&u.Email,
+			&u.Password,
+			&u.AccessLevel,
+			&u.CreatedAt,
+			&u.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, u)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (m *postgresDBRepo) AllRooms() ([]models.Room, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	query := `select r.id, r.room_name, r.created_at, r.updated_at from rooms r order by r.room_name`
+	rows, err := m.DB.QueryContext(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var romms []models.Room
+	for rows.Next() {
+		var u models.Room
+		err := rows.Scan(
+			&u.ID,
+			&u.RoomName,
+			&u.CreatedAt,
+			&u.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		romms = append(romms, u)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return romms, nil
+}
+
+// GetRestrictionsForRoomByDate return restricon
+func (m *postgresDBRepo) GetRestrictionsForRoomByDate(roomID int, start, end time.Time) ([]models.RoomRestriction, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var restrictions []models.RoomRestriction
+	query := `
+	select rr.id, coalesce(rr.reservation_id , 0), rr.restriction_id, rr.room_id , rr.start_date , rr.end_date from room_restrictions rr 
+where $1 < rr.end_date  and $2 >= rr.start_date   and room_id = $3
+`
+
+	rows, err := m.DB.QueryContext(ctx, query, start, end, roomID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var restriction models.RoomRestriction
+		err := rows.Scan(
+			&restriction.ID,
+			&restriction.ReservationID,
+			&restriction.RestrictionID,
+			&restriction.RoomID,
+			&restriction.StartDate,
+			&restriction.EndDate,
+		)
+		if err != nil {
+			return nil, err
+		}
+		restrictions = append(restrictions, restriction)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return restrictions, nil
+}

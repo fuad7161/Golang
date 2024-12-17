@@ -22,4 +22,7 @@ type DatabaseRepo interface {
 	UpdateReservation(res models.Reservation) error
 	DeleteReservation(id int) error
 	InsertUser(user models.User) error
+	ShowAllUser() ([]models.User, error)
+	AllRooms() ([]models.Room, error)
+	GetRestrictionsForRoomByDate(roomID int, start, end time.Time) ([]models.RoomRestriction, error)
 }
