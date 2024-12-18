@@ -421,10 +421,9 @@ func (m *postgresDBRepo) GetRestrictionsForRoomByDate(roomID int, start, end tim
 
 	var restrictions []models.RoomRestriction
 	query := `
-	select rr.id, coalesce(rr.reservation_id , 0), rr.restriction_id, rr.room_id , rr.start_date , rr.end_date from room_restrictions rr 
+	select rr.id, rr.reservation_id, rr.restriction_id, rr.room_id , rr.start_date , rr.end_date from room_restrictions rr 
 where $1 < rr.end_date  and $2 >= rr.start_date   and room_id = $3
 `
-
 	rows, err := m.DB.QueryContext(ctx, query, start, end, roomID)
 	if err != nil {
 		return nil, err
@@ -450,3 +449,11 @@ where $1 < rr.end_date  and $2 >= rr.start_date   and room_id = $3
 	}
 	return restrictions, nil
 }
+
+//
+//func (m *postgresDBRepo) InsertBlockForRoom(id int, startDate time.Time) error {
+//	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+//	defer cancel()
+//
+//	query := `insert into room_restrictions (start_date, end_date, room_id) values ($1, $2, $3)`
+//}
