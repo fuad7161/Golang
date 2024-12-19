@@ -40,3 +40,9 @@ config.json
 
 # Module cache
 go.sum
+
+# Node module
+node_modules
+package.json
+package-lock.json
+database.yml
