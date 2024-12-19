@@ -25,4 +25,6 @@ type DatabaseRepo interface {
 	ShowAllUser() ([]models.User, error)
 	AllRooms() ([]models.Room, error)
 	GetRestrictionsForRoomByDate(roomID int, start, end time.Time) ([]models.RoomRestriction, error)
+	InsertBlockForRoom(id, restrictionID int, startDate time.Time) error
+	RemoveBlockForRoom(id, restrictionID int, startDate time.Time) error
 }

@@ -555,12 +555,11 @@ func (m *Repository) AdminReservationsCalender(w http.ResponseWriter, r *http.Re
 					reservationMap[d.Format("2006-01-02")] = y.ReservationID
 				}
 			} else {
-				blockMap[y.StartDate.Format("2006-01-02")] = y.RestrictionID
+				for d := y.StartDate; d.After(y.EndDate) == false; d = d.AddDate(0, 0, 1) {
+					blockMap[d.Format("2006-01-02")] = y.RestrictionID
+				}
 			}
 		}
-		fmt.Println(restrictions)
-		fmt.Println(blockMap)
-		fmt.Println(reservationMap)
 		data[fmt.Sprintf("reservation_map_%d", x.ID)] = reservationMap
 		data[fmt.Sprintf("block_map_%d", x.ID)] = blockMap
 		m.App.Session.Put(r.Context(), fmt.Sprintf("block_map_%d", x.ID), blockMap)
@@ -631,22 +630,34 @@ func (m *Repository) AdminPostReservationsCalender(w http.ResponseWriter, r *htt
 		helpers.ServerError(w, err)
 		return
 	}
-	form := forms.New(r.PostForm)
-	fmt.Println(form)
 	for _, x := range rooms {
 		fmt.Println(x)
 		for i := 1; i < 32; i++ {
 			if "1" == r.FormValue(fmt.Sprintf("add_block_%d_%d-%d-%d", x.ID, year, month, i)) {
-				fmt.Println(i)
+				strDate := fmt.Sprintf("%d-%d-%d", year, month, i)
+				parseDate, _ := time.Parse("2006-01-02", strDate)
+				value, _ := strconv.Atoi(r.FormValue(fmt.Sprintf("value")))
+				err := m.DB.InsertBlockForRoom(x.ID, value, parseDate)
+				if err != nil {
+					helpers.ServerError(w, err)
+					return
+				}
 			}
 		}
 	}
-
 	for _, x := range rooms {
 		fmt.Println(x)
 		for i := 1; i < 32; i++ {
 			if "1" == r.FormValue(fmt.Sprintf("remove_block_%d_%d-%d-%d", x.ID, year, month, i)) {
 				fmt.Println(i)
+				strDate := fmt.Sprintf("%d-%d-%d", year, month, i)
+				parseDate, _ := time.Parse("2006-01-02", strDate)
+				value, _ := strconv.Atoi(r.FormValue(fmt.Sprintf("value")))
+				err := m.DB.RemoveBlockForRoom(x.ID, value, parseDate)
+				if err != nil {
+					helpers.ServerError(w, err)
+					return
+				}
 			}
 		}
 	}

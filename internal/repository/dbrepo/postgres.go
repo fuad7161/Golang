@@ -421,7 +421,7 @@ func (m *postgresDBRepo) GetRestrictionsForRoomByDate(roomID int, start, end tim
 
 	var restrictions []models.RoomRestriction
 	query := `
-	select rr.id, rr.reservation_id, rr.restriction_id, rr.room_id , rr.start_date , rr.end_date from room_restrictions rr 
+	select rr.id, coalesce(rr.reservation_id, 0), rr.restriction_id, rr.room_id , rr.start_date , rr.end_date from room_restrictions rr 
 where $1 < rr.end_date  and $2 >= rr.start_date   and room_id = $3
 `
 	rows, err := m.DB.QueryContext(ctx, query, start, end, roomID)
@@ -450,10 +450,30 @@ where $1 < rr.end_date  and $2 >= rr.start_date   and room_id = $3
 	return restrictions, nil
 }
 
-//
-//func (m *postgresDBRepo) InsertBlockForRoom(id int, startDate time.Time) error {
-//	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-//	defer cancel()
-//
-//	query := `insert into room_restrictions (start_date, end_date, room_id) values ($1, $2, $3)`
-//}
+func (m *postgresDBRepo) InsertBlockForRoom(id, restrictionID int, startDate time.Time) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	query := `insert into room_restrictions (start_date, end_date, room_id, restriction_id, created_at, updated_at) values ($1, $2, $3, $4,$5,$6)`
+	_, err := m.DB.ExecContext(ctx, query, startDate, startDate, id, restrictionID, time.Now(), time.Now())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *postgresDBRepo) RemoveBlockForRoom(id, restrictionID int, startDate time.Time) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	query := `DELETE FROM room_restrictions
+WHERE start_date = $1 
+  AND end_date = $2
+  AND room_id = $3
+  AND restriction_id = $4;
+`
+	_, err := m.DB.ExecContext(ctx, query, startDate.Format("2006-01-02"), startDate.Format("2006-01-02"), id, restrictionID)
+	if err != nil {
+		return err
+	}
+	return nil
+}
