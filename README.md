@@ -72,45 +72,92 @@ The **Bookings and Reservations System** is a full-stack web application designe
 ---
 
 ## **Future Enhancements**
-### 1. Admin Dashboard
-- **Screenshot**: ![Admin Dashboard](ProjectSS/admin-dashboard.png)
-- A centralized view for administrators to manage the system.
 
-### 2. Admin Summary View
-- **Screenshot**: ![Admin Summary View](ProjectSS/admin%20summary%20view.png)
-- Provides an overview of key metrics and hotel operations.
 
-### 3. Admin Dropdown Options
-- **Screenshot**: ![Admin Dropdown Options](ProjectSS/adim-dashboard-dropdown.png)
-- Quick navigation for admin functionalities.
+### **Public APIs:**
+- **Home and Information Pages:**
+  - `/` - Home page
+  - `/about` - About us
+  - `/contact` - Contact page
 
-### 4. Admin Login
-- **Screenshot**: ![Admin Login](ProjectSS/admin%20login.png)
-- Secure login interface for administrators.
+- **User Authentication:**
+  - `/user/login` (GET, POST) - Login functionality
+  - `/user/logout` - Logout endpoint
 
-### 5. Available Room Search
-- **Screenshot**: ![Available Room Search](ProjectSS/available%20room%20search.png)
-- Users can search for available rooms based on dates and preferences.
+- **Room Reservations:**
+  - `/reservation` (GET, POST) - Make a reservation
+  - `/reservation-summary` - View reservation summary
+  - `/search-availability` (GET, POST) - Search room availability
+  - `/choose-room/{id}` - Choose a specific room
+  - `/book-room` - Book a selected room
+
+- **Static File Handling:**
+  - `/static/*` - Serves static files (CSS, JS, images)
+
+### **Admin APIs:**
+- **Dashboard and Management:**
+  - `/admin/dashboard` - Admin dashboard
+  - `/admin/reservations-new` - View new reservations
+  - `/admin/reservations-all` - View all reservations
+  - `/admin/reservations-calendar` (GET, POST) - Manage reservations via calendar
+  - `/admin/reservations/{src}/{id}` (GET, POST) - View and edit individual reservations
+
+### **Database Management APIs:**
+- `/addUser` (GET, POST) - Add a new user
+- `/show-all-User` - Display all users
+
+---
+### 7. General Quarters View
+- **Screenshot**: ![General Quarters View](ProjectSS/generals_quatars.png)
+- Displays a general view of room categories and availability.
 
 ### 6. Date Picker for Reservations
 - **Screenshot**: ![Date Picker for Reservations](ProjectSS/date_picker.png)
 - Allows users to select dates easily for booking.
 
-### 7. General Quarters View
-- **Screenshot**: ![General Quarters View](ProjectSS/generals_quatars.png)
-- Displays a general view of room categories and availability.
+### 16. Selected Date Information
+- **Screenshot**: ![Selected Date Information](ProjectSS/selected_date.png)
+- Displays details of reservations and room statuses for the selected date.
 
-### 8. Mail Body Template
-- **Screenshot**: ![Mail Body Template](ProjectSS/mail%20body.png)
-- Email template for reservation confirmation or updates.
+### 15. Room Availability Page
+- **Screenshot**: ![Room Availability Page](ProjectSS/room_available.png)
+- Shows the availability status of rooms.
+
+### 5. Available Room Search
+- **Screenshot**: ![Available Room Search](ProjectSS/available%20room%20search.png)
+- Users can search for available rooms based on dates and preferences.
 
 ### 9. Make Reservation Page
 - **Screenshot**: ![Make Reservation Page](ProjectSS/make_reservation_page.png)
 - Page for users to make new reservations.
 
+### 17. Validation Check Page
+- **Screenshot**: ![Validation Check Page](ProjectSS/validation_check.png)
+- Ensures all user inputs meet the requirements for successful reservation.
+
+### 8. Mail Body Template
+- **Screenshot**: ![Mail Body Template](ProjectSS/mail%20body.png)
+- Email template for reservation confirmation or updates.
+
+### 14. Reservation Summary
+- **Screenshot**: ![Reservation Summary](ProjectSS/reservation%20summary.png)
+- Summarizes details of a particular reservation.
+
 ### 10. Not Available Response
 - **Screenshot**: ![Not Available Response](ProjectSS/not_available_response.png)
 - Displays a message when no rooms are available for selected dates.
+
+### 4. Admin Login
+- **Screenshot**: ![Admin Login](ProjectSS/admin%20login.png)
+- Secure login interface for administrators.
+
+### 3. Admin Dropdown Options
+- **Screenshot**: ![Admin Dropdown Options](ProjectSS/adim-dashboard-dropdown.png)
+- Quick navigation for admin functionalities.
+
+### 1. Admin Dashboard
+- **Screenshot**: ![Admin Dashboard](ProjectSS/admin-dashboard.png)
+- A centralized view for administrators to manage the system.
 
 ### 11. Registered User Page
 - **Screenshot**: ![Registered User Page](ProjectSS/registered%20user.png)
@@ -124,57 +171,10 @@ The **Bookings and Reservations System** is a full-stack web application designe
 - **Screenshot**: ![Reservation List](ProjectSS/reservation%20list.png)
 - Displays a detailed list of all reservations.
 
-### 14. Reservation Summary
-- **Screenshot**: ![Reservation Summary](ProjectSS/reservation%20summary.png)
-- Summarizes details of a particular reservation.
+### 2. Reservation Summary View
+- **Screenshot**: ![Admin Summary View](ProjectSS/admin%20summary%20view.png)
+- Provides an overview of key metrics and hotel operations.
 
-### 15. Room Availability Page
-- **Screenshot**: ![Room Availability Page](ProjectSS/room_available.png)
-- Shows the availability status of rooms.
-
-### 16. Selected Date Information
-- **Screenshot**: ![Selected Date Information](ProjectSS/selected_date.png)
-- Displays details of reservations and room statuses for the selected date.
-
-### 17. Validation Check Page
-- **Screenshot**: ![Validation Check Page](ProjectSS/validation_check.png)
-- Ensures all user inputs meet the requirements for successful reservation.
----
-
-## **End Points**
-### **Public APIs:**
-- **Home and Information Pages:**
-    - `/` - Home page
-    - `/about` - About us
-    - `/contact` - Contact page
-
-- **User Authentication:**
-    - `/user/login` (GET, POST) - Login functionality
-    - `/user/logout` - Logout endpoint
-
-- **Room Reservations:**
-    - `/reservation` (GET, POST) - Make a reservation
-    - `/reservation-summary` - View reservation summary
-    - `/search-availability` (GET, POST) - Search room availability
-    - `/choose-room/{id}` - Choose a specific room
-    - `/book-room` - Book a selected room
-
-- **Static File Handling:**
-    - `/static/*` - Serves static files (CSS, JS, images)
-
-### **Admin APIs:**
-- **Dashboard and Management:**
-    - `/admin/dashboard` - Admin dashboard
-    - `/admin/reservations-new` - View new reservations
-    - `/admin/reservations-all` - View all reservations
-    - `/admin/reservations-calendar` (GET, POST) - Manage reservations via calendar
-    - `/admin/reservations/{src}/{id}` (GET, POST) - View and edit individual reservations
-
-### **Database Management APIs:**
-- `/addUser` (GET, POST) - Add a new user
-- `/show-all-User` - Display all users
-
----
 
 ---
 
