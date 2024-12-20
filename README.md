@@ -1,4 +1,4 @@
-# Booings and Reservations Project.
+# Bookings and Reservations Project.
 
 - Built in Go version 1.23.3
 - Uses the [chi router](github.com/alexedwards/scs/v2)
@@ -6,7 +6,7 @@
 - Uses [nsurf](github.com/justinas/nosurf)
 
 ## **Project Overview**
-The **Booings and Reservations System** is a full-stack web application designed to simplify the booking process for customers and streamline reservation management for hotels. This project provides a seamless user experience, integrating a responsive front-end with a robust back-end.
+The **Bookings and Reservations System** is a full-stack web application designed to simplify the booking process for customers and streamline reservation management for hotels. This project provides a seamless user experience, integrating a responsive front-end with a robust back-end.
 
 ---
 
@@ -72,11 +72,73 @@ The **Booings and Reservations System** is a full-stack web application designed
 ---
 
 ## **Future Enhancements**
-- Implement user registration functionality.
-- Add payment gateway integration.
-- Enhance the admin dashboard with analytics and reports.
-- Improve UI/UX with advanced front-end frameworks like Vue.js or React.
+### 1. Admin Dashboard
+- **Screenshot**: ![Admin Dashboard](ProjectSS/admin-dashboard.png)
+- A centralized view for administrators to manage the system.
 
+### 2. Admin Summary View
+- **Screenshot**: ![Admin Summary View](ProjectSS/admin%20summary%20view.png)
+- Provides an overview of key metrics and hotel operations.
+
+### 3. Admin Dropdown Options
+- **Screenshot**: ![Admin Dropdown Options](ProjectSS/adim-dashboard-dropdown.png)
+- Quick navigation for admin functionalities.
+
+### 4. Admin Login
+- **Screenshot**: ![Admin Login](ProjectSS/admin%20login.png)
+- Secure login interface for administrators.
+
+### 5. Available Room Search
+- **Screenshot**: ![Available Room Search](ProjectSS/available%20room%20search.png)
+- Users can search for available rooms based on dates and preferences.
+
+### 6. Date Picker for Reservations
+- **Screenshot**: ![Date Picker for Reservations](ProjectSS/date_picker.png)
+- Allows users to select dates easily for booking.
+
+### 7. General Quarters View
+- **Screenshot**: ![General Quarters View](ProjectSS/generals_quatars.png)
+- Displays a general view of room categories and availability.
+
+### 8. Mail Body Template
+- **Screenshot**: ![Mail Body Template](ProjectSS/mail%20body.png)
+- Email template for reservation confirmation or updates.
+
+### 9. Make Reservation Page
+- **Screenshot**: ![Make Reservation Page](ProjectSS/make_reservation_page.png)
+- Page for users to make new reservations.
+
+### 10. Not Available Response
+- **Screenshot**: ![Not Available Response](ProjectSS/not_available_response.png)
+- Displays a message when no rooms are available for selected dates.
+
+### 11. Registered User Page
+- **Screenshot**: ![Registered User Page](ProjectSS/registered%20user.png)
+- A page to view and manage registered users.
+
+### 12. Reservation Calendar
+- **Screenshot**: ![Reservation Calendar](ProjectSS/reservation%20calendar.png)
+- Calendar view of reservations for easy tracking.
+
+### 13. Reservation List
+- **Screenshot**: ![Reservation List](ProjectSS/reservation%20list.png)
+- Displays a detailed list of all reservations.
+
+### 14. Reservation Summary
+- **Screenshot**: ![Reservation Summary](ProjectSS/reservation%20summary.png)
+- Summarizes details of a particular reservation.
+
+### 15. Room Availability Page
+- **Screenshot**: ![Room Availability Page](ProjectSS/room_available.png)
+- Shows the availability status of rooms.
+
+### 16. Selected Date Information
+- **Screenshot**: ![Selected Date Information](ProjectSS/selected_date.png)
+- Displays details of reservations and room statuses for the selected date.
+
+### 17. Validation Check Page
+- **Screenshot**: ![Validation Check Page](ProjectSS/validation_check.png)
+- Ensures all user inputs meet the requirements for successful reservation.
 ---
 
 ## **End Points**
