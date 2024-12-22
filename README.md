@@ -107,19 +107,19 @@ The **Bookings and Reservations System** is a full-stack web application designe
 - `/show-all-User` - Display all users
 
 ---
-### 7. General Quarters View
+### 1. General Quarters View
 - **Screenshot**: ![General Quarters View](ProjectSS/generals_quatars.png)
 - Displays a general view of room categories and availability.
 
-### 6. Date Picker for Reservations
+### 2. Date Picker for Reservations
 - **Screenshot**: ![Date Picker for Reservations](ProjectSS/date_picker.png)
 - Allows users to select dates easily for booking.
 
-### 16. Selected Date Information
+### 3. Selected Date Information
 - **Screenshot**: ![Selected Date Information](ProjectSS/selected_date.png)
 - Displays details of reservations and room statuses for the selected date.
 
-### 15. Room Availability Page
+### 4. Room Availability Page
 - **Screenshot**: ![Room Availability Page](ProjectSS/room_available.png)
 - Shows the availability status of rooms.
 
@@ -127,11 +127,11 @@ The **Bookings and Reservations System** is a full-stack web application designe
 - **Screenshot**: ![Available Room Search](ProjectSS/available%20room%20search.png)
 - Users can search for available rooms based on dates and preferences.
 
-### 9. Make Reservation Page
+### 6. Make Reservation Page
 - **Screenshot**: ![Make Reservation Page](ProjectSS/make_reservation_page.png)
 - Page for users to make new reservations.
 
-### 17. Validation Check Page
+### 7. Validation Check Page
 - **Screenshot**: ![Validation Check Page](ProjectSS/validation_check.png)
 - Ensures all user inputs meet the requirements for successful reservation.
 
@@ -139,7 +139,7 @@ The **Bookings and Reservations System** is a full-stack web application designe
 - **Screenshot**: ![Mail Body Template](ProjectSS/mail%20body.png)
 - Email template for reservation confirmation or updates.
 
-### 14. Reservation Summary
+### 9. Reservation Summary
 - **Screenshot**: ![Reservation Summary](ProjectSS/reservation%20summary.png)
 - Summarizes details of a particular reservation.
 
@@ -147,31 +147,31 @@ The **Bookings and Reservations System** is a full-stack web application designe
 - **Screenshot**: ![Not Available Response](ProjectSS/not_available_response.png)
 - Displays a message when no rooms are available for selected dates.
 
-### 4. Admin Login
+### 11. Admin Login
 - **Screenshot**: ![Admin Login](ProjectSS/admin%20login.png)
 - Secure login interface for administrators.
 
-### 3. Admin Dropdown Options
+### 12. Admin Dropdown Options
 - **Screenshot**: ![Admin Dropdown Options](ProjectSS/adim-dashboard-dropdown.png)
 - Quick navigation for admin functionalities.
 
-### 1. Admin Dashboard
+### 13. Admin Dashboard
 - **Screenshot**: ![Admin Dashboard](ProjectSS/admin-dashboard.png)
 - A centralized view for administrators to manage the system.
 
-### 11. Registered User Page
+### 14. Registered User Page
 - **Screenshot**: ![Registered User Page](ProjectSS/registered%20user.png)
 - A page to view and manage registered users.
 
-### 12. Reservation Calendar
+### 15. Reservation Calendar
 - **Screenshot**: ![Reservation Calendar](ProjectSS/reservation%20calendar.png)
 - Calendar view of reservations for easy tracking.
 
-### 13. Reservation List
+### 16. Reservation List
 - **Screenshot**: ![Reservation List](ProjectSS/reservation%20list.png)
 - Displays a detailed list of all reservations.
 
-### 2. Reservation Summary View
+### 17. Reservation Summary View
 - **Screenshot**: ![Admin Summary View](ProjectSS/admin%20summary%20view.png)
 - Provides an overview of key metrics and hotel operations.
 
