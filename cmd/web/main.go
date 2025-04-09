@@ -56,7 +56,7 @@ func run() (*driver.DB, error) {
 	dbHost := flag.String("dbhost", "localhost", "Database host")
 	dbName := flag.String("dbname", "postgres", "Database name")
 	dbUser := flag.String("dbuser", "postgres", "Database user")
-	dbPass := flag.String("dbpass", "", "Database password")
+	dbPass := flag.String("dbpass", "1234", "Database password")
 	dbPort := flag.String("dbport", "8080", "Database port")
 	dbSSL := flag.String("dbssl", "disable", "Database ssl settings (disable, prefer, require)")
 

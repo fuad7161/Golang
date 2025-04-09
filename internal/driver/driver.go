@@ -56,3 +56,6 @@ func NewDatabase(dsn string) (*sql.DB, error) {
 	}
 	return db, nil
 }
+
+
+// docker run --name some-postgres -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
